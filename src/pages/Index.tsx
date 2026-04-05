@@ -1,16 +1,25 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useAppStore } from '@/store/appStore';
+import { LoginPage } from '@/components/auth/LoginPage';
+import { DashboardHeader } from '@/components/dashboard/DashboardHeader';
+import { SatelliteGrid } from '@/components/dashboard/SatelliteGrid';
+import { AddSatelliteModal } from '@/components/dashboard/AddSatelliteModal';
+import { DetailPanel } from '@/components/dashboard/DetailPanel';
+import { SignalMonitor } from '@/components/monitoring/SignalMonitor';
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
+const Index = () => {
+  const { auth, monitoringSatellite, showAddModal, showDetailPanel } = useAppStore();
+
+  if (!auth.isAuthenticated) return <LoginPage />;
+  if (monitoringSatellite) return <SignalMonitor />;
+
   return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
+    <div className="min-h-screen bg-background">
+      <DashboardHeader />
+      <SatelliteGrid />
+      {showAddModal && <AddSatelliteModal />}
+      {showDetailPanel && <DetailPanel />}
     </div>
   );
 };
-
-const Index = PlaceholderIndex;
 
 export default Index;
