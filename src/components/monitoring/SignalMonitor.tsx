@@ -79,7 +79,8 @@ export const SignalMonitor = () => {
 
     // Add log entries (throttled)
     if (frameCountRef.current % 5 === 0) {
-      const now = new Date().toLocaleTimeString('en-US', { hour12: false, fractionalSecondDigits: 1 });
+      const d = new Date();
+      const now = d.toLocaleTimeString('en-US', { hour12: false }) + '.' + Math.floor(d.getMilliseconds() / 100);
       const newLogs: LogEntry[] = [];
 
       for (let i = 0; i < result.carriers.length; i++) {
